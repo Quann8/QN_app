@@ -1,0 +1,7 @@
+{
+  "name": "ChronoKeeper1",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
