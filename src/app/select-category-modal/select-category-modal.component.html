@@ -1,0 +1,24 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title class="ion-text-center">Select Category</ion-title>
+    <ion-buttons slot="start">
+      <ion-button (click)="dismissModal()">
+        <ion-icon slot="icon-only" name="arrow-back"></ion-icon> Back
+      </ion-button>
+    </ion-buttons>
+    <ion-buttons slot="end">
+      <ion-button (click)="goToNewEditCategory()">
+        <ion-icon slot="icon-only" name="add"></ion-icon> New
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-list>
+    <ion-item *ngFor="let category of categories" (click)="selectCategory(category)">
+      <div slot="start" [style.backgroundColor]="category.categoryColor" style="width: 20px; height: 20px;"></div>
+      <ion-label>{{ category.categoryName }}</ion-label>
+    </ion-item>
+  </ion-list>
+</ion-content>

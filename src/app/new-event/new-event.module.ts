@@ -8,12 +8,15 @@ import { NewEventPageRoutingModule } from './new-event-routing.module';
 
 import { NewEventPage } from './new-event.page';
 
+import { SelectCategoryModalModule } from '../select-category-modal/select-category-modal.module';
+
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    NewEventPageRoutingModule
+    NewEventPageRoutingModule,
+    SelectCategoryModalModule
   ],
   declarations: [NewEventPage]
 })

@@ -41,7 +41,13 @@ export class Tab2Page implements OnInit, OnDestroy {
 
   openCategory(category: Category) {
     const navigationExtras: NavigationExtras = {
-      state: category
+      state: { 
+        categoryID: category.categoryID,
+        categoryName: category.categoryName,
+        categoryDescription: category.categoryDescription,
+        categoryColor: category.categoryColor,
+        pricePerHour: category.pricePerHour
+      }
     };
     this.router.navigate(['new-edit-category'], navigationExtras);
   }

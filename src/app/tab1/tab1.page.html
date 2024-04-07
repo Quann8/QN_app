@@ -11,6 +11,29 @@
   </ion-toolbar>
 </ion-header>
 
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button (click)="navigateDays(-1)">
+        <ion-icon slot="icon-only" name="chevron-back-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>
+      <div class="date-display">
+        <p>{{ displayedDate | date: 'EEEE' }}</p>
+        <p>{{ displayedDate | date: 'MMMM' }}</p>
+        <p class="bold">{{ displayedDate | date: 'd' }}</p>
+        <p>{{ displayedDate | date: 'y' }}</p>
+      </div>
+    </ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="navigateDays(1)">
+        <ion-icon slot="icon-only" name="chevron-forward-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
 <ion-content>
   <app-explore-container name="Tab 1 page"></app-explore-container>
 </ion-content>

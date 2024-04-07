@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Gesture, GestureController } from '@ionic/angular';
 import { Router } from '@angular/router';
 
 @Component({

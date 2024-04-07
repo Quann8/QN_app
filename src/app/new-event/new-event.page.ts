@@ -6,6 +6,7 @@ import { EventsService } from '../services/events.service';
 import { AuthService } from '../services/auth.service';
 import { ToastController, AlertController } from '@ionic/angular';
 import { take } from 'rxjs/operators';
+import { SelectCategoryModalComponent } from '../select-category-modal/select-category-modal.component';
 
 @Component({
   selector: 'app-new-event',
@@ -19,6 +20,7 @@ export class NewEventPage implements OnInit {
   eventTitle = '';
   eventDescription = '';
   eventCategory: string = 'Default';
+  eventCategoryID: string = '00000';
   startDateTime = '';
   endDateTime = '';
   showStartPicker = false;
@@ -40,8 +42,20 @@ export class NewEventPage implements OnInit {
     this.navCtrl.back();
   }
 
-  openCategoryModal() {
-    //Logic to Open Category Selection Modal
+  async openCategoryModal() {
+    const modal = await this.modalCtrl.create({
+      component: SelectCategoryModalComponent,
+    });
+  
+    await modal.present();
+  
+    const { data: categoryId } = await modal.onWillDismiss();
+    if (categoryId) {
+      this.eventCategoryID = categoryId;
+      this.eventsService.getCategoryById(categoryId).subscribe(category => {
+        this.eventCategory = category.categoryName;
+      })
+    }
   }
 
   togglePicker(pickerType: 'start' | 'end') {
@@ -119,6 +133,7 @@ export class NewEventPage implements OnInit {
       eventTitle: this.eventTitle,
       eventDescription: this.eventDescription,
       eventCategory: this.eventCategory,
+      eventCategoryID: this.eventCategoryID,
       eventStart: this.startDateTime,
       eventEnd: this.endDateTime
     };
