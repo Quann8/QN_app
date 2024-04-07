@@ -1,0 +1,28 @@
+<ion-header>
+  <ion-toolbar color="transparent">
+    <ion-title>Login</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding" color="black">
+  <div class="logo-container">
+    <div class="img-container">
+      <ion-img src="assets/images/CK_logo.png" alt="CK Logo"></ion-img>
+    </div>
+    <h1>Chrono Keeper</h1>
+  </div>
+
+  <form #loginForm="ngForm" (ngSubmit)="login()">
+    <ion-item>
+      <ion-label position="stacked">Email</ion-label>
+      <ion-input type="text" [(ngModel)]="email" name="email" required></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="stacked">Password</ion-label>
+      <ion-input type="password" [(ngModel)]="password" name="password" required></ion-input>
+    </ion-item>
+    <ion-button type="submit" expand="block">Login</ion-button>
+  </form>
+  
+  
+</ion-content>

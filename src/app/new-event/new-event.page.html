@@ -1,0 +1,86 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title class="page-title">
+      New Event
+    </ion-title>
+  </ion-toolbar>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button (click)="goBack()">
+        <ion-icon slot="icon-only" name="arrow-back"></ion-icon> Back
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <form>
+    <ion-grid>
+      <ion-row>
+        
+          <div class="centered-content">
+            
+              <!-- Event Title -->
+              <ion-item>
+                <ion-label position="floating">Event Title</ion-label>
+                <ion-input type="text" maxlength="20" [(ngModel)]="eventTitle" name="eventTitle"></ion-input>
+              </ion-item>
+                        
+              <!-- Event Description -->
+              <ion-item>
+                <ion-label position="floating">Event Description</ion-label>
+                <ion-textarea maxlength="200" [(ngModel)]="eventDescription" name="eventDescription"></ion-textarea>
+              </ion-item>
+            
+              <!-- Event Category -->
+              <ion-item (click)="openCategoryModal()">
+                <ion-label position="floating">Event Category</ion-label>
+                <ion-input readonly [value]="eventCategory"></ion-input>
+              </ion-item>
+            
+          </div>
+        
+      </ion-row>
+      <ion-row>
+        <!-- Start and End Date/Time on the same row -->
+        <ion-col>
+          <!-- Start Date/Time -->
+          <ion-item (click)="togglePicker('start')">
+            <ion-label>Start Date/Time</ion-label>
+            <ion-input type="text" readonly [value]="startDateTime | date: 'MM/dd/yyyy h:mm a'"></ion-input>
+          </ion-item>
+          <!-- Start Date/Time Picker -->
+          <div [ngClass]="showStartPicker ? 'datetime-visible' : 'datetime-hidden'">
+            <ion-datetime #startPicker displayFormat="MM/DD/YYYY hh:mm a" (ionChange)="setTempStartDate($event)"></ion-datetime>
+            <ion-buttons slot="buttons">
+              <ion-button color="danger" (click)="cancelStartDate()">Cancel</ion-button>
+              <ion-button color="primary" (click)="confirmStartDate()">Confirm</ion-button>
+            </ion-buttons>
+          </div>
+        </ion-col>
+        <ion-col>
+          <!-- End Date/Time -->
+          <ion-item (click)="togglePicker('end')">
+            <ion-label>End Date/Time</ion-label>
+            <ion-input type="text" readonly [value]="endDateTime | date: 'MM/dd/yyyy h:mm a'"></ion-input>
+          </ion-item>
+          <!-- End Date/Time Picker -->
+          <div [ngClass]="showEndPicker ? 'datetime-visible' : 'datetime-hidden'">
+            <ion-datetime #endPicker displayFormat="MM/DD/YYYY hh:mm a" (ionChange)="setTempEndDate($event)"></ion-datetime>
+            <ion-buttons slot="buttons">
+              <ion-button color="danger" (click)="cancelEndDate()">Cancel</ion-button>
+              <ion-button color="primary" (click)="confirmEndDate()">Confirm</ion-button>
+            </ion-buttons>
+          </div>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </form>
+
+  <!-- Floating Action Button -->
+  <ion-fab vertical="bottom" horizontal="center" slot="fixed">
+    <ion-fab-button (click)="handleFabAction()">
+      <ion-icon [name]="startDateTime ? (endDateTime ? 'save' : 'stop') : 'play'"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+</ion-content>

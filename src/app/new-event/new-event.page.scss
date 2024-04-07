@@ -1,0 +1,33 @@
+.centered-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center; 
+    width: 100%;
+}
+
+.page-title {
+    --color: #629abb; 
+    font-family: 'Playfair Display', serif;
+    text-align: center; 
+}
+
+.datetime-hidden {
+    opacity: 0;
+    position: absolute;
+    pointer-events: none;
+    width: 0;
+    height: 0;
+}
+  
+.datetime-visible {
+    opacity: 1;
+    position: absolute;
+    pointer-events: auto;
+    z-index: 100; /* Ensure it's above other content */
+}
+  
+ion-fab-button {
+    --background: #629abb; 
+}
+

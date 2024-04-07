@@ -1,0 +1,58 @@
+ion-content {
+    --background: #000; // Set background color to black
+    --ion-text-color: #629abb; // Set the font color
+}
+ion-header ion-title {
+    color: #629abb; // Ensures the title "Login" matches the desired font color
+    font-family: 'Playfair Display', serif; // Custom font for the title
+    text-align: center;
+}
+
+.logo-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-top: 33%; // Adjusts the logo to be a third of the way down the screen
+
+
+  .img-container {
+    border-radius: 50%;
+    width: 200px;
+    height: 200px;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    ion-img {
+      max-width: 100%;
+      max-height: 100%;
+      border-radius: 50%; // Ensure this is here as well for maximum compatibility
+    }
+  }
+
+  h1 {
+    color: #629abb;
+    font-family: 'Playfair Display', serif;
+    font-weight: bolder;
+  }
+}
+
+ion-item {
+    --background: #000; // Sets the background of the form items to black
+  
+    ion-label {
+      color: #629abb; 
+    }
+  
+    ion-input {
+      color: #629abb; 
+    }
+}
+
+ion-button {
+    margin-top: 20px;
+    --background: #629abb; 
+    --color: #000; 
+}
