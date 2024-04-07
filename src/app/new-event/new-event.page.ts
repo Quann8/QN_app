@@ -3,7 +3,9 @@ import { NavController } from '@ionic/angular';
 import { ModalController } from '@ionic/angular';
 import { formatDate } from '@angular/common';
 import { EventsService } from '../services/events.service';
+import { AuthService } from '../services/auth.service';
 import { ToastController, AlertController } from '@ionic/angular';
+import { take } from 'rxjs/operators';
 
 @Component({
   selector: 'app-new-event',
@@ -30,7 +32,8 @@ export class NewEventPage implements OnInit {
     private navCtrl: NavController,
     private eventsService: EventsService,
     private toastController: ToastController,
-    private alertController: AlertController
+    private alertController: AlertController,
+    private authService: AuthService
   ) { }
 
   goBack() {
@@ -113,17 +116,24 @@ export class NewEventPage implements OnInit {
 
   saveEvent() {
     const newEvent = {
-      title: this.eventTitle,
-      description: this.eventDescription,
-      category: this.eventCategory,
-      start: this.startDateTime,
-      end: this.endDateTime
+      eventTitle: this.eventTitle,
+      eventDescription: this.eventDescription,
+      eventCategory: this.eventCategory,
+      eventStart: this.startDateTime,
+      eventEnd: this.endDateTime
     };
-    this.eventsService.createEvent(newEvent).then(() => {
-      this.showSuccessToast().then(() => this.goBack());
-    }).catch(error => {
-      this.showErrorAlert(error.message);
+    this.authService.user$.pipe(take(1)).subscribe(user => {
+      if (user) {
+        this.eventsService.createEvent(newEvent, user.uid).then(() => {
+          this.showSuccessToast().then(() => this.goBack());
+        }).catch(error => {
+          this.showErrorAlert(error.message);
+        });
+      } else {
+        console.error('User not logged in');
+      }
     });
+    
   }
 
   async showSuccessToast() {

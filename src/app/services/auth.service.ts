@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Auth, authState, signInWithEmailAndPassword, signOut } from '@angular/fire/auth';
 import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -29,6 +30,13 @@ export class AuthService {
     } catch (error) {
       console.error('Loguout failed:', error)
     }
+  }
+
+  // Provide User UID
+  getUserUid(): Observable<string | null> {
+    return authState(this.auth).pipe(
+      map((user: any) => user ? user.uid : null)
+    );
   }
 
 }

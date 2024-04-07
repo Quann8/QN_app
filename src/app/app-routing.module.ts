@@ -20,6 +20,10 @@ const routes: Routes = [
   {
     path: 'new-event',
     loadChildren: () => import('./new-event/new-event.module').then( m => m.NewEventPageModule)
+  },
+  {
+    path: 'new-edit-category',
+    loadChildren: () => import('./new-edit-category/new-edit-category.module').then( m => m.NewEditCategoryPageModule)
   }
 ];
 @NgModule({

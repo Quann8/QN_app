@@ -1,0 +1,13 @@
+.centered-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center; 
+    width: 100%;
+}
+
+.page-title {
+    --color: #629abb; 
+    font-family: 'Playfair Display', serif;
+    text-align: center; 
+}

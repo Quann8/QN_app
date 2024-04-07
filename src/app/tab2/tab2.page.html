@@ -1,17 +1,33 @@
-<ion-header [translucent]="true">
+<ion-header>
   <ion-toolbar>
-    <ion-title>
-      Tab 2
+    <ion-title class="tab-title">
+      Category
     </ion-title>
+    <!-- Avatar on the left -->
+    <ion-avatar slot="start">
+      <img src="assets/images/avatar_default.png">
+    </ion-avatar>
+    <!-- Button on the right -->
+    <ion-buttons slot="end">
+      <ion-button (click)="goToNewEditCategory()">
+        <ion-icon slot="icon-only" name="add"></ion-icon>
+        New
+      </ion-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Tab 2</ion-title>
-    </ion-toolbar>
-  </ion-header>
-
-  <app-explore-container name="Tab 2 page"></app-explore-container>
+<ion-content>
+  <ion-list>
+    <ion-item *ngFor="let category of categories" (click)="openCategory(category)">
+      <div slot="start" [style.backgroundColor]="category.categoryColor" style="width: 20px; height: 20px;"></div>
+      <ion-label>{{ category.categoryName }}</ion-label>
+    </ion-item>
+  </ion-list>
 </ion-content>
+
+<ion-fab vertical="bottom" horizontal="center" slot="fixed">
+  <ion-fab-button (click)="openNewEventPage()">
+    <ion-icon name="add"></ion-icon>
+  </ion-fab-button>
+</ion-fab>
