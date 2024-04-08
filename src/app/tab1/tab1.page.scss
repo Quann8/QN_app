@@ -16,4 +16,34 @@ ion-fab-button {
   .bold {
     font-weight: bold;
     font-size: larger;
+}
+
+.day-view {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .time-slot {
+    display: flex;
+    align-items: center;
+  }
+  
+  .time-text {
+    min-width: 60px; /* Adjust as needed */
+  }
+  
+  hr {
+    flex-grow: 1;
+    border: 0;
+    height: 2px; /* Adjust the height for visual preference */
+    margin: 0 10px; /* Adjust spacing around the lines */
+  }
+  
+  .hour-line {
+    background-color: black; /* Change color as needed */
+  }
+  
+  .interval-line {
+    background-color: transparent;
+    border-top: 1px dotted black; /* Adjust dotted line appearance */
   }

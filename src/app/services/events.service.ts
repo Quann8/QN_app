@@ -1,10 +1,11 @@
 import { Injectable } from '@angular/core';
 import { initializeApp } from 'firebase/app';
-import { getDatabase, push, ref, set, query, orderByChild, onValue, update } from 'firebase/database';
+import { getDatabase, push, ref, set, query, orderByChild, onValue, update, orderByKey, startAt, endAt } from 'firebase/database';
 import { AuthService } from './auth.service';
 import { environment } from '../../environments/environment';
 import { of, Observable, BehaviorSubject, throwError } from 'rxjs';
 import { map, switchMap, catchError, } from 'rxjs/operators';
+
 
 export class Category {
   constructor(
@@ -13,6 +14,17 @@ export class Category {
   public categoryDescription: string,
   public categoryColor: string,
   public pricePerHour: number,
+  ) {}
+}
+
+export class Event {
+  constructor(
+    public eventTitle: string,
+    public eventDescription: string,
+    public eventCategory: string,
+    public categoryID: string,
+    public eventStart: Date,
+    public eventEnd: Date,
   ) {}
 }
 
@@ -88,4 +100,42 @@ export class EventsService {
       })
     );
   }
+
+  fetchEventsForDate(date: Date, userUid: string): Observable<Event[]> {
+    const startOfDay = new Date(date.setHours(0, 0, 0, 0)).toISOString();
+    const endOfDay = new Date(date.setHours(23, 59, 59, 999)).toISOString();
+  
+    const eventsRef = query(ref(this.db, `events/${userUid}`), orderByChild(`eventStart`), startAt(startOfDay), endAt(endOfDay));
+  
+    return new Observable((subscriber) => {
+      onValue(eventsRef, (snapshot) => {
+        const events: Event[] = [];
+        snapshot.forEach((childSnapshot) => {
+          const eventVal = childSnapshot.val();
+          const event = new Event(
+            eventVal.eventTitle,
+            eventVal.eventDescription,
+            eventVal.eventCategory,
+            eventVal.categoryID,
+            this.parseDateString(eventVal.eventStart),
+            this.parseDateString(eventVal.eventEnd),
+          );
+          events.push(event);
+        });
+        subscriber.next(events);
+      });
+    });
+  }
+
+  private parseDateString(dateString: string): Date {
+    const [datePart, timePart, meridian] = dateString.split(' ');
+    const [month, day, year] = datePart.split('/').map(num => parseInt(num, 10));
+    let [hour, minute] = timePart.split(':').map(num => parseInt(num, 10));
+
+    // Adjust hour based on AM/PM
+    if (meridian === 'PM' && hour < 12) hour += 12;
+    if (meridian === 'AM' && hour === 12) hour = 0;
+
+    return new Date(year, month - 1, day, hour, minute);
+  }  
 }
