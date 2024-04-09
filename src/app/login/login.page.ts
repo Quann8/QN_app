@@ -31,6 +31,7 @@ export class LoginPage implements OnInit {
       });
     } catch (error) {
       console.log('Login process encountered an error:', (error as Error).message);
+      this.showLoginFailedAlert();
     }
   }
 
